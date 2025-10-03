@@ -132,7 +132,7 @@
                 <li class="week">
                     <div class="week-title">Week {{ wk.week }}</div>
                     <ul class="week-items">
-                        {% for it in wk.items %}
+                        {% for it in wk['items'] %}
                         <li>{{ it }}</li>
                         {% endfor %}
                     </ul>
