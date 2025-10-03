@@ -1,11 +1,15 @@
 ## AI Mentor Hub
 
+![AI Mentor Hub Hero](docs/screenshot.png)
+
 Personal AI mentor that curates resources, plans learning paths, and guides careers from A to Z.
 
 ### Table of Contents
+- [Quick Start](#quick-start)
 - [Overview](#overview)
 - [Why Now](#why-now)
 - [Features](#features)
+- [Screenshot](#screenshot)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation (Clone & Setup)](#installation-clone--setup)
@@ -18,6 +22,25 @@ Personal AI mentor that curates resources, plans learning paths, and guides care
 - [Contributing](#contributing)
 - [License](#license)
 
+### Quick Start
+Run the prototype locally in minutes (PowerShell):
+
+```bash
+# Clone and enter
+git clone https://github.com/your-organization/AI-Mentor-hub.git
+cd AI-Mentor-hub
+
+# Optional: create & activate a virtual environment
+python -m venv .venv
+. .venv/Scripts/Activate.ps1
+
+# Install dependencies if present
+if (Test-Path requirements.txt) { pip install -r requirements.txt }
+
+# Run
+python main.py
+```
+
 ### Overview
 When students or career-switchers want to learn something new—like AI, business, or law—they face a flood of online resources (YouTube tutorials, Udemy courses, blogs). Without prior background, it’s hard to judge which resource is best, in what order to learn topics, or how to connect courses to career goals. Many waste time doing multiple courses just to figure out which is good, or follow a trial-and-error path. People also often lack mentors who can guide them step-by-step through studies, projects, and career moves.
 
@@ -28,6 +51,9 @@ AI Mentor Hub acts as a personal mentor. It analyzes a user’s skills, backgrou
 - **Builds custom study plans**: Generates a tailored plan and schedule.
 - **Provides career guidance**: How to approach professors for higher studies, apply for jobs, or choose paths after a course.
 - **Gives actionable examples**: e.g., “You want to move into AI policy? Start with this NLP crash course, then read these two blogs, and create a short policy-aware project.”
+
+### Screenshot
+![App Screenshot](docs/screenshot.png)
 
 ### Why Now
 Traditional mentorship is expensive (platforms like Fearless Grad charge thousands of dollars), and not everyone has access to professors or mentors in their field. At the same time, online learning resources are growing fast but unstructured. Students need a free or affordable AI mentor that combines deep research + guidance + career navigation in one place.

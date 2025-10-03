@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Mentor Hub</title>
+    <style>
+        :root {
+            --bg1: #1e3a8a;
+            --bg2: #16a34a;
+            --card: #ffffff;
+            --text: #0f172a;
+            --muted: #475569;
+            --accent: #6d28d9;
+        }
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(120deg, var(--bg1), var(--bg2));
+            color: var(--text);
+        }
+        .container {
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 32px 16px 48px;
+        }
+        .hero {
+            background: rgba(255,255,255,0.12);
+            color: #fff;
+            border-radius: 16px;
+            padding: 24px;
+            margin: 16px 0 24px;
+        }
+        .hero h1 {
+            margin: 0 0 8px;
+            font-size: 32px;
+        }
+        .hero p { margin: 8px 0; }
+        .card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 6px 18px rgba(2,6,23,0.15);
+            margin-bottom: 16px;
+        }
+        label { display: block; font-weight: 600; margin: 8px 0 4px; }
+        input, textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        textarea { min-height: 80px; resize: vertical; }
+        .actions { margin-top: 12px; }
+        button {
+            background: var(--accent);
+            color: #fff;
+            border: 0;
+            border-radius: 8px;
+            padding: 10px 14px;
+            cursor: pointer;
+        }
+        .muted { color: var(--muted); font-size: 14px; }
+        .footer { color: #e2e8f0; text-align: center; margin-top: 28px; font-size: 14px; }
+        .grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+        @media (min-width: 900px) { .grid { grid-template-columns: 1.2fr 0.8fr; } }
+        .subtitle { color: var(--muted); margin-top: 0; }
+        .rec-list { list-style: none; padding: 0; margin: 0; }
+        .rec-item { padding: 10px 0; border-bottom: 1px solid #f1f5f9; }
+        .rec-item:last-child { border-bottom: none; }
+        .rec-title { font-weight: 700; }
+        .schedule { list-style: none; padding: 0; margin: 0; }
+        .week { margin-bottom: 12px; }
+        .week-title { font-weight: 700; margin-bottom: 6px; }
+        .week-items { margin: 0; padding-left: 18px; }
+    </style>
+    <script></script>
+    </head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>Your Personal AI Learning Mentor</h1>
+            <p>Stop wasting time on random courses. Get a simple, curated path and actionable guidance based on your background and goals.</p>
+            <p class="muted">Example flow: Python → Math → Data Analysis → Machine Learning → Deep Learning</p>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h2>Tell us about you</h2>
+                <p class="subtitle">We’ll suggest a lean, curated path and a couple of starter resources.</p>
+                <form method="post">
+                    <label for="name">Your Name</label>
+                    <input id="name" name="name" placeholder="Alex" value="{{ user.name }}" />
+
+                    <label for="background">Your Background</label>
+                    <textarea id="background" name="background" placeholder="e.g., no coding experience, business graduate">{{ user.background }}</textarea>
+
+                    <label for="goal">Your Goal</label>
+                    <input id="goal" name="goal" placeholder="e.g., become an AI engineer" value="{{ user.goal }}" />
+
+                    <div class="actions">
+                        <button type="submit">Generate Recommendations</button>
+                    </div>
+                    <p class="muted">No data is stored. This demo runs locally.</p>
+                </form>
+            </div>
+
+            <div class="card">
+                <h2>Recommendations</h2>
+                {% if recommendations and recommendations|length > 0 %}
+                <ul class="rec-list">
+                    {% for rec in recommendations %}
+                    <li class="rec-item">
+                        <div class="rec-title"><a href="{{ rec.url }}" target="_blank" rel="noopener noreferrer">{{ rec.title }}</a></div>
+                        <div class="muted">{{ rec.why }}</div>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p class="muted">Fill the form to see a tailored path and resources.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if schedule and schedule|length > 0 %}
+        <div class="card">
+            <h2>Suggested 6-Week Schedule</h2>
+            <ul class="schedule">
+                {% for wk in schedule %}
+                <li class="week">
+                    <div class="week-title">Week {{ wk.week }}</div>
+                    <ul class="week-items">
+                        {% for it in wk.items %}
+                        <li>{{ it }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <div class="footer">AI Mentor Hub · Minimal Demo</div>
+    </div>
+</body>
+</html>
+
+
