@@ -21,7 +21,7 @@ else:
     client = None
     print("Warning: TOGETHER_API_KEY not found in environment variables")
 
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 import json
 import os
 from datetime import datetime, timedelta
@@ -55,6 +55,66 @@ def prompt_llm(prompt, with_linebreak=False):
     else:
         return output
 
+def format_chatbot_response(response):
+    """Format chatbot response with proper HTML structure"""
+    if not response:
+        return ""
+    
+    import re
+    
+    # First, convert all **text** patterns to <strong>text</strong>
+    formatted = re.sub(r'\*\*([^*]+)\*\*', r'<strong>\1</strong>', response)
+    
+    # Handle bullet points and lists
+    lines = formatted.split('\n')
+    html_lines = []
+    in_list = False
+    
+    for line in lines:
+        line = line.strip()
+        if not line:
+            if in_list:
+                html_lines.append('</ul>')
+                in_list = False
+            html_lines.append('<br>')
+            continue
+            
+        # Handle bullet points
+        if line.startswith('•') or line.startswith('-') or line.startswith('*'):
+            if not in_list:
+                html_lines.append('<ul>')
+                in_list = True
+            content = line[1:].strip()
+            html_lines.append(f'<li>{content}</li>')
+        
+        # Handle numbered lists
+        elif line and line[0].isdigit() and '. ' in line:
+            if not in_list:
+                html_lines.append('<ol>')
+                in_list = True
+            content = line.split('. ', 1)[1] if '. ' in line else line
+            html_lines.append(f'<li>{content}</li>')
+        
+        # Handle headers (lines that are just bold text)
+        elif line.startswith('<strong>') and line.endswith('</strong>') and len(line) > 17:
+            if in_list:
+                html_lines.append('</ul>')
+                in_list = False
+            content = line[8:-9].strip()  # Remove <strong> and </strong>
+            html_lines.append(f'<h3>{content}</h3>')
+        
+        # Regular paragraphs
+        else:
+            if in_list:
+                html_lines.append('</ul>')
+                in_list = False
+            html_lines.append(f'<p>{line}</p>')
+    
+    # Close any open list
+    if in_list:
+        html_lines.append('</ul>')
+    
+    return ''.join(html_lines)
 
 def save_user_recommendations(user_id, recommendations, schedule):
     """Save user recommendations to a JSON file."""
@@ -605,6 +665,46 @@ def build_schedule(background: str, goal: str, recommendations: list = None) -> 
 
 ## Chat endpoints removed for landing-page flow
 
+
+@app.route("/chat", methods=["POST"])
+def chat():
+    """AI Mentor chatbot for learning guidance"""
+    data = request.get_json()
+    user_message = data.get("message", "")
+    
+    context = """You are an AI Learning Mentor for the AI Mentor Hub. 
+    This app helps students and career-switchers by:
+    - Analyzing their skills and background
+    - Creating personalized learning paths
+    - Recommending quality online courses
+    - Building structured study schedules
+    - Providing career guidance
+    
+    Answer questions about learning, courses, career advice, and study planning.
+    Be encouraging, practical, and specific.
+    
+    Instructions:
+    - Keep responses concise (3-4 lines max)
+    - Use bullet points when helpful
+    - Focus on actionable advice
+    """
+    
+    prompt = f"{context}\n\nUser question: {user_message}"
+    
+    # Save the conversation for debugging
+    os.makedirs("results", exist_ok=True)
+    with open("results/chat_prompt.txt", "w") as f:
+        f.write(prompt)
+    
+    try:
+        response = prompt_llm(prompt)
+    except Exception as e:
+        response = f"I'm having trouble connecting to the AI service right now. Please try again later. Error: {str(e)}"
+    
+    # Format the response for better display
+    formatted_response = format_chatbot_response(response)
+    
+    return jsonify({"response": formatted_response})
 
 if __name__ == "__main__":
     app.run(debug=True)
