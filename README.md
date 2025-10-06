@@ -1,133 +1,252 @@
-## AI Mentor Hub
+# AI Mentor Hub
 
-![AI Mentor Hub Hero](docs/screenshot.png)
+**Personal AI mentor that curates resources, plans learning paths, and guides careers from A to Z.**
 
-Personal AI mentor that curates resources, plans learning paths, and guides careers from A to Z.
+A comprehensive Flask web application that uses AI to generate personalized learning recommendations, create structured study schedules, and provide career guidance based on individual backgrounds and goals.
 
-### Table of Contents
-- [Quick Start](#quick-start)
-- [Overview](#overview)
-- [Why Now](#why-now)
-- [Features](#features)
-- [Screenshot](#screenshot)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation (Clone & Setup)](#installation-clone--setup)
-  - [Run the App](#run-the-app)
-- [Usage](#usage)
-- [Project Structure](#project-structure)
-- [Configuration](#configuration)
-- [Tech Stack (Planned)](#tech-stack-planned)
-- [Roadmap](#roadmap)
-- [Contributing](#contributing)
-- [License](#license)
+## 🚀 Quick Start
 
-### Quick Start
-Run the prototype locally in minutes (PowerShell):
+Run the application locally in minutes:
 
 ```bash
 # Clone and enter
-git clone https://github.com/your-organization/AI-Mentor-hub.git
+git clone https://github.com/your-username/AI-Mentor-hub.git
 cd AI-Mentor-hub
 
-# Optional: create & activate a virtual environment
-python -m venv .venv
-. .venv/Scripts/Activate.ps1
+# Install dependencies
+pip install flask python-dotenv together
 
-# Install dependencies if present
-if (Test-Path requirements.txt) { pip install -r requirements.txt }
+# Optional: Set up AI API key
+echo "TOGETHER_API_KEY=your_api_key_here" > .env
 
-# Run
-python main.py
+# Run the application
+python app.py
 ```
 
-### Overview
-When students or career-switchers want to learn something new—like AI, business, or law—they face a flood of online resources (YouTube tutorials, Udemy courses, blogs). Without prior background, it’s hard to judge which resource is best, in what order to learn topics, or how to connect courses to career goals. Many waste time doing multiple courses just to figure out which is good, or follow a trial-and-error path. People also often lack mentors who can guide them step-by-step through studies, projects, and career moves.
+Visit `http://127.0.0.1:5000` to start your learning journey!
 
-AI Mentor Hub acts as a personal mentor. It analyzes a user’s skills, background, and goals, then:
+## 📋 Table of Contents
 
-- **Recommends curated resources**: Filters the noise to suggest the best online courses and materials.
-- **Guides learning order**: e.g., Python → Math → Data Analysis → Machine Learning → Deep Learning → NLP.
-- **Builds custom study plans**: Generates a tailored plan and schedule.
-- **Provides career guidance**: How to approach professors for higher studies, apply for jobs, or choose paths after a course.
-- **Gives actionable examples**: e.g., “You want to move into AI policy? Start with this NLP crash course, then read these two blogs, and create a short policy-aware project.”
+- [Features](#-features)
+- [AI Integration](#-ai-integration)
+- [User Flow](#-user-flow)
+- [Installation](#-installation)
+- [Configuration](#-configuration)
+- [Project Structure](#-project-structure)
+- [Tech Stack](#-tech-stack)
+- [Screenshots](#-screenshots)
+- [Roadmap](#-roadmap)
+- [Contributing](#-contributing)
 
-### Screenshot
-![App Screenshot](docs/screenshot.png)
+## ✨ Features
 
-### Why Now
-Traditional mentorship is expensive (platforms like Fearless Grad charge thousands of dollars), and not everyone has access to professors or mentors in their field. At the same time, online learning resources are growing fast but unstructured. Students need a free or affordable AI mentor that combines deep research + guidance + career navigation in one place.
+### 🎯 **Personalized Learning Roadmap**
+- **AI-Powered Recommendations**: Dynamic course suggestions from top platforms (Coursera, Udemy, Khan Academy, edX)
+- **Structured Learning Phases**: Foundation → Core Skills → Advanced Applications
+- **Platform Integration**: Real URLs to actual courses with ratings, duration, and difficulty levels
+- **Progressive Difficulty**: Beginner to advanced learning paths
 
-### Features
-- Curated resource recommendations
-- Guided learning order
-- Custom study plans and schedules
-- Career guidance with actionable examples
+### 📅 **Interactive Schedule Tracker**
+- **6-Week Learning Schedule**: AI-generated realistic weekly tasks
+- **Progress Tracking**: Visual progress bars and completion checkboxes
+- **Task Management**: Individual task completion with week-level tracking
+- **Export Functionality**: Download progress as JSON for record-keeping
+- **Reset Options**: Start fresh when needed
 
-### Getting Started
-Follow these steps to run the project locally.
+### 🧠 **Smart Memory System**
+- **User Recognition**: Remembers recommendations based on user profile
+- **Persistent Storage**: Local JSON file storage for user data
+- **Regeneration Options**: Users can request new recommendations anytime
+- **Session Management**: Maintains user context across visits
 
-#### Prerequisites
-- Python 3.10+
+### 🎨 **Professional UI/UX**
+- **Multi-Page Flow**: Landing → Login → Dashboard Selection → Study/Career Dashboards
+- **Responsive Design**: Works on desktop, tablet, and mobile
+- **Modern Interface**: Clean, professional design with smooth animations
+- **Feature Pages**: Detailed explanations for each AI mentor capability
+
+## 🤖 AI Integration
+
+### **AI Model**: Meta-Llama-3-8B-Instruct-Lite via Together AI
+- **Dynamic Content Generation**: Creates personalized recommendations and schedules
+- **Context Awareness**: Considers user background, goals, and recommended courses
+- **Fallback System**: Works even without API key (uses curated static recommendations)
+- **Smart Prompting**: Optimized prompts for educational content generation
+
+### **AI Capabilities**:
+- **Course Discovery**: Finds relevant courses across multiple learning platforms
+- **Schedule Generation**: Creates realistic, achievable weekly learning plans
+- **Resource Curation**: Filters and ranks educational content
+- **Personalization**: Adapts recommendations based on individual profiles
+
+## 🔄 User Flow
+
+1. **Landing Page**: Learn about AI Mentor Hub features and capabilities
+2. **Login**: Simple authentication (demo accepts any credentials)
+3. **Dashboard Selection**: Choose between Study Preparations or Career Guidance
+4. **Study Dashboard**: Input your background, skills, and learning goals
+5. **AI Generation**: Get personalized recommendations and 6-week schedule
+6. **Progress Tracking**: Track your learning progress with interactive tools
+7. **Regeneration**: Request new recommendations when needed
+
+## 🛠 Installation
+
+### Prerequisites
+- Python 3.8+
 - Git
+- Web browser
 
-#### Installation (Clone & Setup)
-Open PowerShell and run:
+### Setup Steps
 
 ```bash
-# 1) Clone the repository
-git clone https://github.com/your-organization/AI-Mentor-hub.git
-
-# 2) Move into the project directory
+# 1. Clone the repository
+git clone https://github.com/your-username/AI-Mentor-hub.git
 cd AI-Mentor-hub
 
-# 3) (Optional) Create and activate a virtual environment
-python -m venv .venv
-. .venv/Scripts/Activate.ps1
+# 2. Create virtual environment (recommended)
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-# 4) Install dependencies (if a requirements.txt exists)
-if (Test-Path requirements.txt) { pip install -r requirements.txt }
+# 3. Install dependencies
+pip install flask python-dotenv together
+
+# 4. Run the application
+python app.py
 ```
 
-#### Run the App
-```bash
-python main.py
+## ⚙️ Configuration
+
+### Environment Variables
+Create a `.env` file in the project root:
+
+```env
+# Optional: Together AI API Key for enhanced AI features
+TOGETHER_API_KEY=your_together_api_key_here
+
+# Flask secret key (change in production)
+FLASK_SECRET_KEY=your_secret_key_here
 ```
 
-### Usage
-- The current prototype prints a simple greeting via `main.py`.
-- Future versions will expose a CLI and/or web UI to:
-  - Input background, skills, and goals
-  - Generate personalized learning paths and schedules
-  - Receive curated resource recommendations
-  - Get career guidance and actionable next steps
+### API Key Setup (Optional)
+1. Sign up at [Together AI](https://together.ai/)
+2. Get your API key
+3. Add it to your `.env` file
+4. Restart the application
 
-### Project Structure
-```text
+**Note**: The app works without an API key using fallback recommendations.
+
+## 📁 Project Structure
+
+```
 AI-Mentor-hub/
-  ├─ main.py            # Entry point (prototype)
-  └─ README.md          # Project overview & setup
+├── app.py                          # Main Flask application
+├── templates/                       # HTML templates
+│   ├── landing.html                # Landing page
+│   ├── login.html                  # Login page
+│   ├── dashboard_selection.html    # Dashboard selection
+│   ├── study_dashboard.html        # Study preparations dashboard
+│   ├── career_dashboard.html       # Career guidance dashboard
+│   ├── recommendations.html        # AI-generated recommendations
+│   └── feature_pages/              # Individual feature explanations
+├── user_data/                      # User recommendation storage
+│   └── *.json                     # User-specific data files
+├── .env                           # Environment variables (create this)
+├── .gitignore                     # Git ignore rules
+└── README.md                      # This file
 ```
 
-### Configuration
-- No configuration required for the current prototype.
-- Planned: `.env` file for API keys (e.g., LLM providers), persistence, and feature flags.
+## 🛠 Tech Stack
 
-### Tech Stack (Planned)
-- Python backend (LLM orchestration, planning engine)
-- Optional web frontend (React) or CLI interface
-- Data storage for user profiles, goals, and progress
+### Backend
+- **Flask**: Web framework
+- **Python 3.8+**: Core language
+- **Together AI**: LLM integration
+- **JSON**: Local data storage
 
-### Roadmap
-- Collect user profile (skills, background, goals)
-- Curriculum planner with prerequisite graphs
-- Resource ranking and deduplication
-- Study-plan generation and calendar export
-- Career-coaching playbooks and templates
-- Progress tracking and feedback loop
+### Frontend
+- **HTML5/CSS3**: Modern web standards
+- **JavaScript**: Interactive features
+- **Responsive Design**: Mobile-first approach
 
-### Contributing
-Contributions are welcome. Please open an issue to discuss your idea before submitting a PR.
+### AI/ML
+- **Meta-Llama-3-8B-Instruct-Lite**: Language model
+- **Custom Prompts**: Educational content generation
+- **Context Management**: User profile integration
 
-### License
-TBD
+## 📸 Screenshots
+
+### Landing Page
+![Landing Page](docs/landing-page.png)
+*Professional landing page with AI mentor introduction, feature highlights, and call-to-action buttons*
+
+### Study Dashboard  
+![Study Dashboard](docs/study-dashboard.png)
+*Clean form interface for user input with real-time recommendation checking and status messages*
+
+---
+
+**📝 Additional Screenshots:** More screenshots will be added as the application evolves, including the recommendations page and interactive schedule tracker.
+
+## 🗺 Roadmap
+
+### Completed ✅
+- [x] Multi-page web application
+- [x] AI-powered recommendation generation
+- [x] Interactive schedule tracker
+- [x] User memory system
+- [x] Professional UI/UX
+- [x] Responsive design
+- [x] Progress tracking
+- [x] Export functionality
+
+### In Progress 🚧
+- [ ] Career guidance dashboard enhancement
+- [ ] Advanced progress analytics
+- [ ] User authentication system
+- [ ] Database integration
+
+### Planned 📋
+- [ ] Mobile app development
+- [ ] Social learning features
+- [ ] Integration with learning platforms
+- [ ] Advanced AI tutoring
+- [ ] Community features
+- [ ] Certification tracking
+
+## 🤝 Contributing
+
+We welcome contributions! Here's how you can help:
+
+1. **Fork the repository**
+2. **Create a feature branch**: `git checkout -b feature/amazing-feature`
+3. **Commit your changes**: `git commit -m 'Add amazing feature'`
+4. **Push to the branch**: `git push origin feature/amazing-feature`
+5. **Open a Pull Request**
+
+### Development Setup
+```bash
+# Install development dependencies
+pip install -r requirements-dev.txt
+
+# Run tests
+python -m pytest
+
+# Start development server
+python app.py
+```
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- **Together AI** for providing the LLM infrastructure
+- **Flask** community for the excellent web framework
+- **Open source contributors** who made this project possible
+
+---
+
+**Ready to transform your learning journey?** 🚀
+
+[Get Started](#-quick-start) | [View Features](#-features) | [Contribute](#-contributing)

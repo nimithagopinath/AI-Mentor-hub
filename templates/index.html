@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI Mentor Hub</title>
+    <title>Dashboard - AI Learning Mentor</title>
     <style>
         :root {
             --bg1: #1e3a8a;
@@ -81,8 +81,8 @@
 <body>
     <div class="container">
         <div class="hero">
-            <h1>Your Personal AI Learning Mentor</h1>
-            <p>Stop wasting time on random courses. Get a simple, curated path and actionable guidance based on your background and goals.</p>
+            <h1>Welcome to Your Learning Dashboard</h1>
+            <p>Get personalized recommendations and a structured learning path based on your background and goals.</p>
             <p class="muted">Example flow: Python → Math → Data Analysis → Machine Learning → Deep Learning</p>
         </div>
 
@@ -114,6 +114,7 @@
                     {% for rec in recommendations %}
                     <li class="rec-item">
                         <div class="rec-title"><a href="{{ rec.url }}" target="_blank" rel="noopener noreferrer">{{ rec.title }}</a></div>
+                        {% if rec.desc %}<div>{{ rec.desc }}</div>{% endif %}
                         <div class="muted">{{ rec.why }}</div>
                     </li>
                     {% endfor %}

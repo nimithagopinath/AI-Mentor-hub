@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Your Dashboard - AI Mentor Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #1e40af 0%, #6d28d9 50%, #10b981 100%);
+            min-height: 100vh;
+            color: #1f2937;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .dashboard-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
+        }
+        
+        .dashboard-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+        
+        .study-icon {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+        }
+        
+        .career-icon {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+        
+        .dashboard-card h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #1f2937;
+        }
+        
+        .dashboard-card p {
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        
+        .dashboard-button {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .study-button {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .study-button:hover {
+            background: #1d4ed8;
+        }
+        
+        .career-button {
+            background: #10b981;
+            color: white;
+        }
+        
+        .career-button:hover {
+            background: #059669;
+        }
+        
+        .back-link {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .back-link a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        .back-link a:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Choose Your Dashboard</h1>
+            <p>Select the type of guidance you need for your learning journey</p>
+        </div>
+        
+        <div class="dashboard-grid">
+            <a href="/study-dashboard" class="dashboard-card">
+                <div class="dashboard-icon study-icon">📚</div>
+                <h2>Study Preparations</h2>
+                <p>Get personalized learning recommendations, structured timelines, and curated resources to build your skills systematically.</p>
+                <div class="dashboard-button study-button">Start Learning</div>
+            </a>
+            
+            <a href="/career-dashboard" class="dashboard-card">
+                <div class="dashboard-icon career-icon">🚀</div>
+                <h2>Career Guidance</h2>
+                <p>Receive strategic career advice, networking tips, and guidance for job applications and career transitions.</p>
+                <div class="dashboard-button career-button">Advance Career</div>
+            </a>
+        </div>
+        
+        <div class="back-link">
+            <a href="/login">← Back to Login</a>
+        </div>
+    </div>
+</body>
+</html>

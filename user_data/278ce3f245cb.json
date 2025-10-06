@@ -1,0 +1,129 @@
+{
+  "user_id": "278ce3f245cb",
+  "recommendations": [
+    {
+      "title": "Python for Everybody Specialization",
+      "url": "https://www.coursera.org/specializations/python",
+      "platform": "Coursera",
+      "duration": "8 months",
+      "level": "Beginner",
+      "rating": "4.8",
+      "desc": "Learn Python programming fundamentals with hands-on projects and real-world applications.",
+      "why": "Build essential programming skills for data science and AI."
+    },
+    {
+      "title": "Machine Learning Course",
+      "url": "https://www.coursera.org/learn/machine-learning",
+      "platform": "Coursera",
+      "duration": "11 weeks",
+      "level": "Intermediate",
+      "rating": "4.9",
+      "desc": "Comprehensive introduction to machine learning algorithms and applications.",
+      "why": "Master core ML concepts and practical implementation skills."
+    },
+    {
+      "title": "Deep Learning Specialization",
+      "url": "https://www.coursera.org/specializations/deep-learning",
+      "platform": "Coursera",
+      "duration": "5 months",
+      "level": "Advanced",
+      "rating": "4.8",
+      "desc": "Advanced neural networks, CNNs, RNNs, and deep learning applications.",
+      "why": "Develop expertise in cutting-edge AI technologies."
+    },
+    {
+      "title": "Statistics and Probability",
+      "url": "https://www.khanacademy.org/math/statistics-probability",
+      "platform": "Khan Academy",
+      "duration": "Self-paced",
+      "level": "Beginner",
+      "rating": "4.5+",
+      "desc": "Essential statistical concepts and probability theory for data analysis.",
+      "why": "Build mathematical foundation for machine learning."
+    },
+    {
+      "title": "Data Science Bootcamp",
+      "url": "https://www.udemy.com/course/python-for-data-science-and-machine-learning-bootcamp/",
+      "platform": "Udemy",
+      "duration": "25 hours",
+      "level": "Intermediate",
+      "rating": "4.6",
+      "desc": "Complete data science workflow with Python, pandas, scikit-learn, and more.",
+      "why": "Apply programming skills to real data science projects."
+    },
+    {
+      "title": "Advanced Machine Learning",
+      "url": "https://www.edx.org/course/machine-learning-fundamentals",
+      "platform": "edX",
+      "duration": "6 weeks",
+      "level": "Advanced",
+      "rating": "4.7",
+      "desc": "Advanced ML techniques, model optimization, and production deployment.",
+      "why": "Master advanced ML concepts for professional applications."
+    }
+  ],
+  "schedule": [
+    {
+      "week": 1,
+      "items": [
+        "Complete Week 1 of Python course",
+        "Set up development environment",
+        "Complete 3 coding exercises"
+      ],
+      "completed": false,
+      "progress": 0
+    },
+    {
+      "week": 2,
+      "items": [
+        "Finish Python fundamentals",
+        "Start statistics course",
+        "Build first small project"
+      ],
+      "completed": false,
+      "progress": 0
+    },
+    {
+      "week": 3,
+      "items": [
+        "Complete statistics module",
+        "Start machine learning basics",
+        "Work on project documentation"
+      ],
+      "completed": false,
+      "progress": 0
+    },
+    {
+      "week": 4,
+      "items": [
+        "Deep dive into ML algorithms",
+        "Complete intermediate course",
+        "Iterate on project"
+      ],
+      "completed": false,
+      "progress": 0
+    },
+    {
+      "week": 5,
+      "items": [
+        "Share project for feedback",
+        "Complete advanced topics",
+        "Refine project based on feedback"
+      ],
+      "completed": false,
+      "progress": 0
+    },
+    {
+      "week": 6,
+      "items": [
+        "Finalize portfolio project",
+        "Complete final course modules",
+        "Plan next learning steps"
+      ],
+      "completed": false,
+      "progress": 0
+    }
+  ],
+  "created_at": "2025-10-05T18:39:33.733790",
+  "last_updated": "2025-10-05T18:39:33.733807"
+}

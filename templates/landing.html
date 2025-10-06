@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Learning Mentor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(180deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+            color: #1f2937;
+            overflow-x: hidden;
+        }
+        
+         .page-wrapper {
+             width: 100%;
+         }
+         
+         .container {
+             max-width: 1200px;
+             margin: 0 auto;
+             padding: 0 20px;
+             min-height: 100vh;
+             display: flex;
+             align-items: center;
+         }
+        
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .left-section {
+            z-index: 2;
+        }
+        
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #6b7280;
+        }
+        
+        .lightbulb {
+            width: 16px;
+            height: 16px;
+            background: #6d28d9;
+            border-radius: 50%;
+            position: relative;
+        }
+        
+        .lightbulb::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 4px;
+            background: #6d28d9;
+            border-radius: 2px 2px 0 0;
+        }
+        
+        .main-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+        
+        .title-transform {
+            color: #6d28d9;
+        }
+        
+        .title-journey {
+            color: #1f2937;
+        }
+        
+        .description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            color: #4b5563;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 60px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(90deg, #6d28d9, #10b981);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #6d28d9;
+            border: 2px solid #6d28d9;
+            padding: 14px 30px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        
+        .btn-secondary:hover {
+            background: #6d28d9;
+            color: white;
+        }
+        
+        .stats {
+            display: flex;
+            gap: 40px;
+        }
+        
+        .stat {
+            text-align: left;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #6b7280;
+        }
+        
+        .right-section {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .illustration {
+            width: 400px;
+            height: 400px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .main-shape {
+            width: 280px;
+            height: 200px;
+            background: rgba(59, 130, 246, 0.15);
+            border-radius: 24px;
+            position: relative;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        
+        .person-1 {
+            position: absolute;
+            top: 30px;
+            left: 20px;
+            width: 60px;
+            height: 80px;
+            background: #3b82f6;
+            border-radius: 30px 30px 15px 15px;
+        }
+        
+        .person-1::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: #fbbf24;
+            border-radius: 50%;
+        }
+        
+        .person-2 {
+            position: absolute;
+            top: 40px;
+            right: 20px;
+            width: 50px;
+            height: 70px;
+            background: #10b981;
+            border-radius: 25px 25px 12px 12px;
+        }
+        
+        .person-2::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 18px;
+            height: 18px;
+            background: #f59e0b;
+            border-radius: 50%;
+        }
+        
+        .ai-device {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 60px;
+            background: white;
+            border-radius: 8px;
+            border: 2px solid #6d28d9;
+            box-shadow: 0 4px 12px rgba(109, 40, 217, 0.2);
+        }
+        
+        .ai-device::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 12px;
+            background: #10b981;
+            border-radius: 50%;
+        }
+        
+        .ai-device::after {
+            content: '';
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 2px;
+            background: #6d28d9;
+            border-radius: 1px;
+        }
+        
+        .laptop {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            width: 50px;
+            height: 30px;
+            background: #fbbf24;
+            border-radius: 4px;
+            border: 2px solid #f59e0b;
+        }
+        
+        .laptop::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 6px;
+            background: #f59e0b;
+            border-radius: 2px;
+        }
+        
+        .chart {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 40px;
+            height: 30px;
+            background: white;
+            border-radius: 4px;
+            border: 2px solid #10b981;
+        }
+        
+        .chart::before {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 4px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 1px;
+        }
+        
+        .chart::after {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 10px;
+            width: 4px;
+            height: 12px;
+            background: #3b82f6;
+            border-radius: 1px;
+        }
+        
+        .popup-card {
+            position: absolute;
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            color: #374151;
+            font-size: 14px;
+            z-index: 3;
+        }
+        
+        .popup-top {
+            top: 20px;
+            right: 20px;
+            border-left: 4px solid #6d28d9;
+        }
+        
+        .popup-bottom {
+            bottom: 20px;
+            right: 20px;
+            border-left: 4px solid #10b981;
+        }
+        
+        .popup-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+        
+        .popup-top .popup-icon {
+            background: #6d28d9;
+        }
+        
+        .popup-bottom .popup-icon {
+            background: #10b981;
+        }
+        
+        .popup-title {
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        
+         .popup-subtitle {
+             opacity: 0.7;
+         }
+         
+         .features-section {
+             padding: 60px 0;
+             background: #f8fafc;
+         }
+         
+         .features-container {
+             max-width: 1200px;
+             margin: 0 auto;
+             padding: 0 20px;
+         }
+         
+         .features-header {
+             text-align: center;
+             margin-bottom: 20px;
+         }
+         
+         .features-title {
+             font-size: 3rem;
+             font-weight: 800;
+             color: #6d28d9;
+             margin-bottom: 20px;
+         }
+         
+         .features-subtitle {
+             font-size: 1.2rem;
+             color: #6b7280;
+             max-width: 600px;
+             margin: 0 auto;
+             line-height: 1.6;
+         }
+         
+         .features-grid {
+             display: grid;
+             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+             gap: 24px;
+             margin-bottom: 40px;
+         }
+         
+         .feature-card {
+             background: white;
+             border-radius: 16px;
+             padding: 32px;
+             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+             border: 1px solid #e5e7eb;
+             transition: transform 0.2s, box-shadow 0.2s;
+         }
+         
+         .feature-card:hover {
+             transform: translateY(-4px);
+             box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12);
+         }
+         
+         .feature-icon {
+             width: 48px;
+             height: 48px;
+             background: #1e40af;
+             border-radius: 12px;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             margin-bottom: 20px;
+             position: relative;
+         }
+         
+         .feature-icon::before {
+             content: '';
+             width: 24px;
+             height: 24px;
+             background: white;
+             border-radius: 4px;
+         }
+         
+         .feature-title {
+             font-size: 1.25rem;
+             font-weight: 700;
+             color: #1f2937;
+             margin-bottom: 12px;
+         }
+         
+         .feature-desc {
+             color: #6b7280;
+             line-height: 1.6;
+         }
+         
+         .feature-card-link {
+             text-decoration: none;
+             color: inherit;
+             display: block;
+             transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+         }
+         
+         .feature-card-link:hover .feature-card {
+             transform: translateY(-5px);
+             box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12);
+         }
+         
+         .career-path {
+             background: linear-gradient(135deg, #1e40af 0%, #6d28d9 100%);
+             border-radius: 20px;
+             padding: 40px;
+             color: white;
+         }
+         
+         .career-title {
+             font-size: 2rem;
+             font-weight: 800;
+             margin-bottom: 32px;
+         }
+         
+         .steps-grid {
+             display: grid;
+             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+             gap: 24px;
+         }
+         
+         .step {
+             text-align: center;
+         }
+         
+         .step-number {
+             width: 60px;
+             height: 60px;
+             background: white;
+             color: #1e40af;
+             border-radius: 50%;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             font-size: 1.5rem;
+             font-weight: 800;
+             margin: 0 auto 16px;
+         }
+         
+         .step-title {
+             font-size: 1.1rem;
+             font-weight: 700;
+             margin-bottom: 8px;
+         }
+         
+         .step-desc {
+             font-size: 0.9rem;
+             opacity: 0.9;
+         }
+         
+         .crisis-section {
+             margin: 40px auto;
+             text-align: center;
+             max-width: 1200px;
+             padding: 0 20px;
+         }
+         
+         .crisis-title {
+             font-size: 2.5rem;
+             font-weight: 800;
+             margin-bottom: 20px;
+         }
+         
+         .crisis-title .the {
+             color: #374151;
+         }
+         
+         .crisis-title .learning-crisis {
+             color: #6d28d9;
+         }
+         
+         .crisis-intro {
+             font-size: 1.1rem;
+             color: #4b5563;
+             margin-bottom: 32px;
+             max-width: 600px;
+             margin-left: auto;
+             margin-right: auto;
+         }
+         
+         .problems-grid {
+             display: grid;
+             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+             gap: 20px;
+             margin-bottom: 32px;
+         }
+         
+         .problem-card {
+             background: white;
+             border-radius: 12px;
+             padding: 24px;
+             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+             border: 1px solid #e5e7eb;
+         }
+         
+         .problem-icon {
+             width: 40px;
+             height: 40px;
+             background: #6d28d9;
+             border-radius: 8px;
+             margin: 0 auto 16px;
+         }
+         
+         .problem-title {
+             font-size: 1.1rem;
+             font-weight: 700;
+             color: #1f2937;
+             margin-bottom: 8px;
+         }
+         
+         .problem-desc {
+             color: #6b7280;
+             line-height: 1.5;
+             font-size: 0.9rem;
+         }
+         
+         .crisis-quote {
+             font-style: italic;
+             color: #4b5563;
+             font-size: 1rem;
+             margin-top: 20px;
+         }
+         
+         .highlight {
+             color: #6d28d9;
+             font-weight: 600;
+         }
+         
+         .cta-button {
+             text-align: center;
+             margin-top: 32px;
+         }
+         
+         .cta-btn {
+             background: linear-gradient(90deg, #6d28d9, #10b981);
+             color: white;
+             border: none;
+             padding: 16px 32px;
+             border-radius: 12px;
+             font-size: 16px;
+             font-weight: 600;
+             cursor: pointer;
+             transition: transform 0.2s;
+             text-decoration: none;
+             display: inline-flex;
+             align-items: center;
+             gap: 8px;
+         }
+         
+         .cta-btn:hover {
+             transform: translateY(-2px);
+         }
+         
+         .cta-icon {
+             width: 16px;
+             height: 16px;
+             background: white;
+             border-radius: 2px;
+             position: relative;
+         }
+         
+         .cta-icon::before {
+             content: '';
+             position: absolute;
+             top: 2px;
+             left: 2px;
+             width: 8px;
+             height: 8px;
+             background: #6d28d9;
+             border-radius: 1px;
+         }
+         
+         @media (max-width: 768px) {
+             .main-title {
+                 font-size: 2.5rem;
+             }
+             
+             .features-grid {
+                 grid-template-columns: 1fr;
+             }
+             
+             .steps-grid {
+                 grid-template-columns: repeat(2, 1fr);
+             }
+         }
+         
+         .crisis-title .the {
+             color: #374151;
+         }
+         
+         .crisis-title .learning-crisis {
+             color: #6d28d9;
+         }
+         
+         .crisis-intro {
+             font-size: 1.1rem;
+             color: #4b5563;
+             margin-bottom: 12px;
+             max-width: 600px;
+             margin-left: auto;
+             margin-right: auto;
+         }
+         
+         .problems-grid {
+             display: grid;
+             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+             gap: 6px;
+             margin-bottom: 12px;
+         }
+         
+         .problem-card {
+             background: white;
+             border-radius: 12px;
+             padding: 24px;
+             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+             border: 1px solid #e5e7eb;
+             text-align: left;
+         }
+         
+         .problem-icon {
+             width: 48px;
+             height: 48px;
+             background: #6d28d9;
+             border-radius: 8px;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             margin-bottom: 16px;
+         }
+         
+         .problem-icon::before {
+             content: '';
+             width: 24px;
+             height: 24px;
+             background: white;
+             border-radius: 2px;
+         }
+         
+         .problem-title {
+             font-size: 1.1rem;
+             font-weight: 700;
+             color: #1f2937;
+             margin-bottom: 8px;
+         }
+         
+         .problem-desc {
+             color: #4b5563;
+             line-height: 1.5;
+         }
+         
+         .crisis-quote {
+             font-size: 1.2rem;
+             font-style: italic;
+             color: #374151;
+             max-width: 700px;
+             margin: 0 auto;
+             position: relative;
+         }
+         
+         .crisis-quote .highlight {
+             text-decoration: underline;
+             text-decoration-color: #6d28d9;
+             text-underline-offset: 4px;
+         }
+        
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+            
+            .main-title {
+                font-size: 2.5rem;
+            }
+            
+            .buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .stats {
+                justify-content: center;
+            }
+            
+            .illustration {
+                width: 300px;
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+ <body>
+     <div class="page-wrapper">
+         <div class="container">
+             <div class="content">
+                 <div class="left-section">
+                     <div class="header">
+                         <div class="lightbulb"></div>
+                         <span>Your Personal AI Learning Mentor</span>
+                     </div>
+                     
+                     <h1 class="main-title">
+                         <span class="title-transform">Transform</span><br>
+                         <span class="title-journey">Learning Journey</span>
+                     </h1>
+                     
+                     <p class="description">
+                         Stop wasting time on random courses. Get personalized learning paths, curated resources, and career guidance from your AI mentor that understands your goals.
+                     </p>
+                     
+                     <div class="buttons">
+                     <a href="/login" class="btn-primary">
+                         Start Your Journey →
+                     </a>
+                         <a href="#" class="btn-secondary">
+                             Watch Demo
+                         </a>
+                     </div>
+                     
+                     <div class="stats">
+                         <div class="stat">
+                             <div class="stat-number">10K+</div>
+                             <div class="stat-label">Learning Paths</div>
+                         </div>
+                         <div class="stat">
+                             <div class="stat-number">98%</div>
+                             <div class="stat-label">Success Rate</div>
+                         </div>
+                         <div class="stat">
+                             <div class="stat-number">24/7</div>
+                             <div class="stat-label">AI Support</div>
+                         </div>
+                     </div>
+                 </div>
+                 
+                 <div class="right-section">
+                     <div class="illustration">
+                         <div class="main-shape">
+                             <div class="person-1"></div>
+                             <div class="person-2"></div>
+                             <div class="ai-device"></div>
+                             <div class="laptop"></div>
+                             <div class="chart"></div>
+                         </div>
+                         
+                         <div class="popup-card popup-top">
+                             <div class="popup-icon"></div>
+                             <div class="popup-title">AI Analysis</div>
+                             <div class="popup-subtitle">Personalized Path Ready</div>
+                         </div>
+                         
+                         <div class="popup-card popup-bottom">
+                             <div class="popup-icon"></div>
+                             <div class="popup-title">Career Goal</div>
+                             <div class="popup-subtitle">AI Engineer Track</div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+         
+         <!-- Learning Crisis Section -->
+         <div class="crisis-section">
+             <h2 class="crisis-title">
+                 <span class="the">The</span> <span class="learning-crisis">Learning Crisis</span>
+             </h2>
+             
+             <p class="crisis-intro">
+                 With infinite resources but no guidance, learners are drowning in information while starving for wisdom and direction.
+             </p>
+             
+             <div class="problems-grid">
+                 <div class="problem-card">
+                     <div class="problem-icon"></div>
+                     <h3 class="problem-title">Information Overload</h3>
+                     <p class="problem-desc">Thousands of courses, tutorials, and resources with no clear guidance on quality or relevance.</p>
+                 </div>
+                 
+                 <div class="problem-card">
+                     <div class="problem-icon"></div>
+                     <h3 class="problem-title">Wasted Time</h3>
+                     <p class="problem-desc">Students spend months trying random courses before finding what actually works for their goals.</p>
+                 </div>
+                 
+                 <div class="problem-card">
+                     <div class="problem-icon"></div>
+                     <h3 class="problem-title">No Clear Path</h3>
+                     <p class="problem-desc">Without proper sequencing, learners jump between topics without building solid foundations.</p>
+                 </div>
+                 
+                 <div class="problem-card">
+                     <div class="problem-icon"></div>
+                     <h3 class="problem-title">Lack of Mentorship</h3>
+                     <p class="problem-desc">No one to guide career decisions, project ideas, or next steps in the learning journey.</p>
+                 </div>
+             </div>
+             
+             <p class="crisis-quote">
+                 "Traditional mentorship costs thousands, and not everyone has access to professors or experts in <span class="highlight">their field.</span>"
+             </p>
+         </div>
+         
+         <!-- Mentor Features Section -->
+         <div class="features-section">
+             <div class="features-container">
+                 <div class="features-header">
+                     <h2 class="features-title">Your Personal AI Mentor</h2>
+                     <p class="features-subtitle">AI Mentor Hub combines deep learning analytics with expert knowledge to guide you from beginner to expert in any field.</p>
+                 </div>
+                 
+                 <div class="features-grid">
+                     <a href="/ai-skills-analysis" class="feature-card-link">
+                         <div class="feature-card">
+                             <div class="feature-icon"></div>
+                             <h3 class="feature-title">AI Skills Analysis</h3>
+                             <p class="feature-desc">Deep assessment of your current knowledge, learning style, and career aspirations</p>
+                         </div>
+                     </a>
+                     
+                     <a href="/personalized-learning-paths" class="feature-card-link">
+                         <div class="feature-card">
+                             <div class="feature-icon"></div>
+                             <h3 class="feature-title">Personalized Learning Paths</h3>
+                             <p class="feature-desc">Custom roadmaps with optimal resource sequencing for your specific goals</p>
+                         </div>
+                     </a>
+                     
+                     <a href="/structured-timeline" class="feature-card-link">
+                         <div class="feature-card">
+                             <div class="feature-icon"></div>
+                             <h3 class="feature-title">Structured Timeline</h3>
+                             <p class="feature-desc">Realistic schedules that fit your life while maintaining steady progress</p>
+                         </div>
+                     </a>
+                     
+                     <a href="/career-guidance" class="feature-card-link">
+                         <div class="feature-card">
+                             <div class="feature-icon"></div>
+                             <h3 class="feature-title">Career Guidance</h3>
+                             <p class="feature-desc">Strategic advice on networking, applications, and career transitions</p>
+                         </div>
+                     </a>
+                     
+                     <a href="/quality-curation" class="feature-card-link">
+                         <div class="feature-card">
+                             <div class="feature-icon"></div>
+                             <h3 class="feature-title">Quality Curation</h3>
+                             <p class="feature-desc">Only the best resources, filtered and ranked by real learning outcomes</p>
+                         </div>
+                     </a>
+                     
+                     <a href="/project-recommendations" class="feature-card-link">
+                         <div class="feature-card">
+                             <div class="feature-icon"></div>
+                             <h3 class="feature-title">Project Recommendations</h3>
+                             <p class="feature-desc">Hands-on projects that build portfolio value and practical skills</p>
+                         </div>
+                     </a>
+                 </div>
+                 
+                 <div class="career-path">
+                     <h2 class="career-title">Example: Your AI Policy Career Path</h2>
+                     <div class="steps-grid">
+                         <div class="step">
+                             <div class="step-number">1</div>
+                             <div class="step-title">Foundation</div>
+                             <div class="step-desc">NLP Crash Course</div>
+                         </div>
+                         <div class="step">
+                             <div class="step-number">2</div>
+                             <div class="step-title">Research</div>
+                             <div class="step-desc">Policy Blogs & Papers</div>
+                         </div>
+                         <div class="step">
+                             <div class="step-number">3</div>
+                             <div class="step-title">Project</div>
+                             <div class="step-desc">Policy-Aware Analysis</div>
+                         </div>
+                         <div class="step">
+                             <div class="step-number">4</div>
+                             <div class="step-title">Career</div>
+                             <div class="step-desc">Network & Apply</div>
+                         </div>
+                     </div>
+                 </div>
+                 
+                 <div class="cta-button">
+                     <a href="/login" class="cta-btn">
+                         Get Your Personalized Path
+                         <div class="cta-icon"></div>
+                     </a>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </body>
+ </html>

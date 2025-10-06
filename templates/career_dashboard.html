@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Guidance Dashboard - AI Mentor Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #1e40af 0%, #6d28d9 50%, #10b981 100%);
+            min-height: 100vh;
+            color: #1f2937;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 30px;
+            color: white;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+        
+        .header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .header .example-flow {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            text-align: left;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .panel {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+        }
+        
+        .panel h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #1f2937;
+        }
+        
+        .panel p {
+            color: #6b7280;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #374151;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .generate-btn {
+            width: 100%;
+            padding: 14px;
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .generate-btn:hover {
+            background: #059669;
+        }
+        
+        .disclaimer {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-top: 15px;
+            text-align: center;
+        }
+        
+        .recommendations-panel {
+            min-height: 400px;
+        }
+        
+        .recommendations-content {
+            display: none;
+        }
+        
+        .recommendations-content.show {
+            display: block;
+        }
+        
+        .career-section {
+            margin-bottom: 25px;
+        }
+        
+        .career-section h3 {
+            color: #1f2937;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .career-item {
+            background: #f0fdf4;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid #10b981;
+        }
+        
+        .career-item h4 {
+            color: #065f46;
+            margin-bottom: 8px;
+        }
+        
+        .career-item p {
+            color: #047857;
+            margin-bottom: 10px;
+        }
+        
+        .career-item ul {
+            margin-left: 20px;
+            color: #047857;
+        }
+        
+        .career-item li {
+            margin-bottom: 5px;
+        }
+        
+        .action-item {
+            background: #fef3c7;
+            border-left-color: #f59e0b;
+        }
+        
+        .action-item h4 {
+            color: #92400e;
+        }
+        
+        .action-item p {
+            color: #b45309;
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            opacity: 0.7;
+            font-size: 14px;
+        }
+        
+        .back-link {
+            margin-bottom: 20px;
+        }
+        
+        .back-link a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        .back-link a:hover {
+            opacity: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="back-link">
+            <a href="/dashboard-selection">← Back to Dashboard Selection</a>
+        </div>
+        
+        <div class="header">
+            <h1>Career Guidance Dashboard</h1>
+            <p class="subtitle">Get strategic career advice, networking tips, and guidance for job applications and career transitions.</p>
+            <p class="example-flow">Example focus: Resume optimization → Interview prep → Networking strategies → Salary negotiation</p>
+        </div>
+        
+        <div class="main-content">
+            <div class="panel">
+                <h2>Tell us about your career goals</h2>
+                <p>We'll provide personalized career guidance and action steps to advance your professional journey.</p>
+                
+                <form id="careerForm">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" placeholder="Alex" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="currentRole">Current Role/Experience Level</label>
+                        <select id="currentRole" name="currentRole" required>
+                            <option value="">Select your current level</option>
+                            <option value="entry">Entry Level (0-2 years)</option>
+                            <option value="mid">Mid Level (3-5 years)</option>
+                            <option value="senior">Senior Level (6+ years)</option>
+                            <option value="transition">Career Transition</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="industry">Industry/Field</label>
+                        <input type="text" id="industry" name="industry" placeholder="e.g., Software Engineering, Data Science, Marketing" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="careerGoal">Career Goal</label>
+                        <textarea id="careerGoal" name="careerGoal" placeholder="e.g., become a senior developer, transition to AI/ML, get promoted to manager" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="generate-btn">Get Career Guidance</button>
+                </form>
+                
+                <p class="disclaimer">No data is stored. This demo runs locally.</p>
+            </div>
+            
+            <div class="panel recommendations-panel">
+                <h2>Career Guidance</h2>
+                <p>Fill the form to see personalized career advice and action steps.</p>
+                
+                <div id="recommendationsContent" class="recommendations-content">
+                    <!-- Career guidance will be populated here -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            AI Mentor Hub • Career Guidance
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('careerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const currentRole = document.getElementById('currentRole').value;
+            const industry = document.getElementById('industry').value;
+            const careerGoal = document.getElementById('careerGoal').value;
+            
+            // Show loading state
+            const recommendationsContent = document.getElementById('recommendationsContent');
+            recommendationsContent.innerHTML = '<p>Generating personalized career guidance...</p>';
+            recommendationsContent.classList.add('show');
+            
+            // Simulate API call
+            setTimeout(() => {
+                generateCareerGuidance(name, currentRole, industry, careerGoal);
+            }, 1500);
+        });
+        
+        function generateCareerGuidance(name, currentRole, industry, careerGoal) {
+            const recommendationsContent = document.getElementById('recommendationsContent');
+            
+            let html = `<h3>Career Guidance for ${name}</h3>`;
+            
+            // Resume & Application Strategy
+            html += `
+                <div class="career-section">
+                    <h3>📄 Resume & Application Strategy</h3>
+                    <div class="career-item">
+                        <h4>Optimize Your Resume</h4>
+                        <p>Tailor your resume for ${industry} roles:</p>
+                        <ul>
+                            <li>Use industry-specific keywords from job postings</li>
+                            <li>Quantify achievements with metrics and results</li>
+                            <li>Highlight relevant projects and technologies</li>
+                            <li>Keep it concise (1-2 pages maximum)</li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+            
+            // Interview Preparation
+            html += `
+                <div class="career-section">
+                    <h3>🎯 Interview Preparation</h3>
+                    <div class="career-item">
+                        <h4>Technical & Behavioral Prep</h4>
+                        <p>Prepare for ${industry} interviews:</p>
+                        <ul>
+                            <li>Practice common technical questions in your field</li>
+                            <li>Prepare STAR method examples for behavioral questions</li>
+                            <li>Research the company culture and recent news</li>
+                            <li>Prepare thoughtful questions about the role and team</li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+            
+            // Networking Strategy
+            html += `
+                <div class="career-section">
+                    <h3>🤝 Networking Strategy</h3>
+                    <div class="career-item">
+                        <h4>Build Professional Relationships</h4>
+                        <p>Expand your network in ${industry}:</p>
+                        <ul>
+                            <li>Attend industry meetups and conferences</li>
+                            <li>Connect with professionals on LinkedIn</li>
+                            <li>Join relevant online communities and forums</li>
+                            <li>Reach out for informational interviews</li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+            
+            // Action Items
+            html += `
+                <div class="career-section">
+                    <h3>⚡ Immediate Action Items</h3>
+                    <div class="career-item action-item">
+                        <h4>This Week</h4>
+                        <ul>
+                            <li>Update your LinkedIn profile with current skills</li>
+                            <li>Research 5 companies you'd like to work for</li>
+                            <li>Set up job alerts for relevant positions</li>
+                        </ul>
+                    </div>
+                    <div class="career-item action-item">
+                        <h4>This Month</h4>
+                        <ul>
+                            <li>Attend at least 2 networking events</li>
+                            <li>Apply to 10+ relevant job postings</li>
+                            <li>Schedule 3 informational interviews</li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+            
+            recommendationsContent.innerHTML = html;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Preparations Dashboard - AI Mentor Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #059669 100%);
+            min-height: 100vh;
+            color: #1f2937;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 30px;
+            color: white;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+        
+        .header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .header .example-flow {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            text-align: left;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .main-content {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-container {
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        .panel {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+        }
+        
+        .panel h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #1f2937;
+        }
+        
+        .panel p {
+            color: #6b7280;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #374151;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #6d28d9;
+            box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.1);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .generate-btn {
+            width: 100%;
+            padding: 14px;
+            background: #6d28d9;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .generate-btn:hover {
+            background: #5b21b6;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .regenerate-btn {
+            background: #f59e0b;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .regenerate-btn:hover {
+            background: #d97706;
+        }
+        
+        .status-message {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .status-message.existing {
+            background: #fef3c7;
+            color: #92400e;
+            border: 1px solid #f59e0b;
+        }
+        
+        .status-message.new {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #10b981;
+        }
+        
+        .disclaimer {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-top: 15px;
+            text-align: center;
+        }
+        
+        .recommendations-panel {
+            min-height: 400px;
+        }
+        
+        .recommendations-content {
+            display: none;
+        }
+        
+        .recommendations-content.show {
+            display: block;
+        }
+        
+        .recommendation-item {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid #6d28d9;
+        }
+        
+        .recommendation-item h3 {
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+        
+        .recommendation-item p {
+            color: #6b7280;
+            margin-bottom: 10px;
+        }
+        
+        .recommendation-item a {
+            color: #6d28d9;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .recommendation-item a:hover {
+            text-decoration: underline;
+        }
+        
+        .schedule-section {
+            margin-top: 20px;
+        }
+        
+        .schedule-item {
+            background: #f0f9ff;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-left: 4px solid #0ea5e9;
+        }
+        
+        .schedule-item h4 {
+            color: #0c4a6e;
+            margin-bottom: 5px;
+        }
+        
+        .schedule-item ul {
+            margin-left: 20px;
+            color: #0369a1;
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            opacity: 0.7;
+            font-size: 14px;
+        }
+        
+        .back-link {
+            margin-bottom: 20px;
+        }
+        
+        .back-link a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        .back-link a:hover {
+            opacity: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="back-link">
+            <a href="/dashboard-selection">← Back to Dashboard Selection</a>
+        </div>
+        
+        <div class="header">
+            <h1>Welcome to Your Learning Dashboard</h1>
+            <p class="subtitle">Get personalized recommendations and a structured learning path based on your background and goals.</p>
+            <p class="example-flow">Example flow: Python → Math → Data Analysis → Machine Learning → Deep Learning</p>
+        </div>
+        
+        <div class="main-content">
+            <div class="form-container">
+                <div class="panel">
+                    <h2>Tell us about you</h2>
+                    <p>We'll suggest a lean, curated path and a couple of starter resources.</p>
+                    
+                    <form id="learningForm" action="/recommendations" method="POST">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" placeholder="Alex" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="background">Your Background</label>
+                            <textarea id="background" name="background" placeholder="e.g., no coding experience, business graduate" required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="goal">Your Goal</label>
+                            <input type="text" id="goal" name="goal" placeholder="e.g., become an AI engineer" required>
+                        </div>
+                        
+                        <div id="recommendation-status" class="status-message" style="display: none;"></div>
+                        
+                        <div class="button-group">
+                            <button type="submit" class="generate-btn">Generate Recommendations</button>
+                            <button type="button" id="regenerate-btn" class="regenerate-btn" style="display: none;">🔄 Regenerate</button>
+                        </div>
+                    </form>
+                    
+                    <script>
+                        document.getElementById('learningForm').addEventListener('submit', function(e) {
+                            console.log('Form submitted!');
+                            // Let the form submit naturally
+                        });
+                        
+                        // Check for existing recommendations when form fields are filled
+                        function checkExistingRecommendations() {
+                            const name = document.getElementById('name').value.trim();
+                            const background = document.getElementById('background').value.trim();
+                            const goal = document.getElementById('goal').value.trim();
+                            
+                            if (name && background && goal) {
+                                const formData = new FormData();
+                                formData.append('name', name);
+                                formData.append('background', background);
+                                formData.append('goal', goal);
+                                
+                                fetch('/check-recommendations', {
+                                    method: 'POST',
+                                    body: formData
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    const statusDiv = document.getElementById('recommendation-status');
+                                    const regenerateBtn = document.getElementById('regenerate-btn');
+                                    
+                                    statusDiv.textContent = data.message;
+                                    statusDiv.style.display = 'block';
+                                    statusDiv.className = 'status-message ' + (data.has_recommendations ? 'existing' : 'new');
+                                    
+                                    // Show regenerate button if user has existing recommendations
+                                    if (data.has_recommendations) {
+                                        regenerateBtn.style.display = 'inline-block';
+                                    } else {
+                                        regenerateBtn.style.display = 'none';
+                                    }
+                                })
+                                .catch(error => {
+                                    console.log('Error checking recommendations:', error);
+                                });
+                            } else {
+                                document.getElementById('recommendation-status').style.display = 'none';
+                            }
+                        }
+                        
+                        // Add event listeners to form fields
+                        document.getElementById('name').addEventListener('input', checkExistingRecommendations);
+                        document.getElementById('background').addEventListener('input', checkExistingRecommendations);
+                        document.getElementById('goal').addEventListener('input', checkExistingRecommendations);
+                        
+                        // Handle regenerate button click
+                        document.getElementById('regenerate-btn').addEventListener('click', function() {
+                            const form = document.getElementById('learningForm');
+                            const regenerateInput = document.createElement('input');
+                            regenerateInput.type = 'hidden';
+                            regenerateInput.name = 'regenerate';
+                            regenerateInput.value = 'true';
+                            form.appendChild(regenerateInput);
+                            form.submit();
+                        });
+                    </script>
+                    
+                    <p class="disclaimer">No data is stored. This demo runs locally.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            AI Mentor Hub • Minimal Demo
+        </div>
+    </div>
+</body>
+</html>
